@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\FilmRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -31,6 +33,20 @@ class Film
 
     #[ORM\Column(length: 255)]
     private ?string $release_date = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $image = null;
+
+    /**
+     * @var Collection<int, Starships>
+     */
+    #[ORM\ManyToMany(targetEntity: Starships::class, inversedBy: 'films')]
+    private Collection $starships;
+
+    public function __construct()
+    {
+        $this->starships = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -106,6 +122,42 @@ class Film
     public function setReleaseDate(string $release_date): static
     {
         $this->release_date = $release_date;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Starships>
+     */
+    public function getStarships(): Collection
+    {
+        return $this->starships;
+    }
+
+    public function addStarship(Starships $starship): static
+    {
+        if (!$this->starships->contains($starship)) {
+            $this->starships->add($starship);
+        }
+
+        return $this;
+    }
+
+    public function removeStarship(Starships $starship): static
+    {
+        $this->starships->removeElement($starship);
 
         return $this;
     }
