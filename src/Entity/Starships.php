@@ -22,9 +22,6 @@ class Starships
     private ?string $model = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $costInCredits = null;
 
     #[ORM\Column(length: 255)]
@@ -53,6 +50,9 @@ class Starships
      */
     #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'starships')]
     private Collection $films;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
 
     public function __construct()
     {
@@ -90,17 +90,6 @@ class Starships
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getCostInCredits(): ?string
     {
@@ -224,6 +213,18 @@ class Starships
         if ($this->films->removeElement($film)) {
             $film->removeStarship($this);
         }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

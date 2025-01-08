@@ -20,19 +20,11 @@ class Character
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $image = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $species = null;
 
-    /**
-     * @var Collection<int, Film>
-     */
-    #[ORM\ManyToMany(targetEntity: Film::class, inversedBy: 'characters')]
-    private Collection $films;
 
     #[ORM\ManyToOne(inversedBy: 'characters')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private ?Planet $planet = null;
 
     /**
@@ -41,10 +33,29 @@ class Character
     #[ORM\ManyToMany(targetEntity: Starships::class, inversedBy: 'characters')]
     private Collection $starships;
 
+    #[ORM\Column(length: 255)]
+    private ?string $height = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $mass = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $birthYear = null;
+
+    /**
+     * @var Collection<int, Film>
+     */
+    #[ORM\ManyToMany(targetEntity: Film::class, mappedBy: 'characters')]
+    private Collection $films;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
-        $this->films = new ArrayCollection();
+        
         $this->starships = new ArrayCollection();
+        $this->films = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -64,17 +75,6 @@ class Character
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     public function getSpecies(): ?string
     {
@@ -84,30 +84,6 @@ class Character
     public function setSpecies(string $species): static
     {
         $this->species = $species;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Film>
-     */
-    public function getFilms(): Collection
-    {
-        return $this->films;
-    }
-
-    public function addFilm(Film $film): static
-    {
-        if (!$this->films->contains($film)) {
-            $this->films->add($film);
-        }
-
-        return $this;
-    }
-
-    public function removeFilm(Film $film): static
-    {
-        $this->films->removeElement($film);
 
         return $this;
     }
@@ -144,6 +120,81 @@ class Character
     public function removeStarship(Starships $starship): static
     {
         $this->starships->removeElement($starship);
+
+        return $this;
+    }
+
+    public function getHeight(): ?string
+    {
+        return $this->height;
+    }
+
+    public function setHeight(string $height): static
+    {
+        $this->height = $height;
+
+        return $this;
+    }
+
+    public function getMass(): ?string
+    {
+        return $this->mass;
+    }
+
+    public function setMass(string $mass): static
+    {
+        $this->mass = $mass;
+
+        return $this;
+    }
+
+    public function getBirthYear(): ?string
+    {
+        return $this->birthYear;
+    }
+
+    public function setBirthYear(string $birthYear): static
+    {
+        $this->birthYear = $birthYear;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Film>
+     */
+    public function getFilms(): Collection
+    {
+        return $this->films;
+    }
+
+    public function addFilm(Film $film): static
+    {
+        if (!$this->films->contains($film)) {
+            $this->films->add($film);
+            $film->addCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilm(Film $film): static
+    {
+        if ($this->films->removeElement($film)) {
+            $film->removeCharacter($this);
+        }
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

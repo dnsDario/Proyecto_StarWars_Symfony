@@ -34,8 +34,6 @@ class Film
     #[ORM\Column(length: 255)]
     private ?string $release_date = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $image = null;
 
     /**
      * @var Collection<int, Starships>
@@ -43,9 +41,26 @@ class Film
     #[ORM\ManyToMany(targetEntity: Starships::class, inversedBy: 'films')]
     private Collection $starships;
 
+    /**
+     * @var Collection<int, Character>
+     */
+    #[ORM\ManyToMany(targetEntity: Character::class, inversedBy: 'films')]
+    private Collection $characters;
+
+    /**
+     * @var Collection<int, Planet>
+     */
+    #[ORM\ManyToMany(targetEntity: Planet::class, inversedBy: 'films')]
+    private Collection $planets;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     public function __construct()
     {
         $this->starships = new ArrayCollection();
+        $this->characters = new ArrayCollection();
+        $this->planets = new ArrayCollection();
     }
 
 
@@ -126,17 +141,6 @@ class Film
         return $this;
     }
 
-    public function getImage(): ?string
-    {
-        return $this->image;
-    }
-
-    public function setImage(string $image): static
-    {
-        $this->image = $image;
-
-        return $this;
-    }
 
     /**
      * @return Collection<int, Starships>
@@ -150,6 +154,7 @@ class Film
     {
         if (!$this->starships->contains($starship)) {
             $this->starships->add($starship);
+            $starship->addFilm($this);
         }
 
         return $this;
@@ -158,6 +163,68 @@ class Film
     public function removeStarship(Starships $starship): static
     {
         $this->starships->removeElement($starship);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Character>
+     */
+    public function getCharacters(): Collection
+    {
+        return $this->characters;
+    }
+
+    public function addCharacter(Character $character): static
+    {
+        if (!$this->characters->contains($character)) {
+            $this->characters->add($character);
+            $character->addFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCharacter(Character $character): static
+    {
+        $this->characters->removeElement($character);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Planet>
+     */
+    public function getPlanets(): Collection
+    {
+        return $this->planets;
+    }
+
+    public function addPlanet(Planet $planet): static
+    {
+        if (!$this->planets->contains($planet)) {
+            $this->planets->add($planet);
+            $planet->addFilm($this);
+        }
+
+        return $this;
+    }
+
+    public function removePlanet(Planet $planet): static
+    {
+        $this->planets->removeElement($planet);
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
 
         return $this;
     }

@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+
+{% block films %}
+	{% for film in films %}
+
+		<div class="card">
+			<img src="{{asset(film.image)}}" alt="film" class="card-img">
+		</div>
+	{% endfor %}
+{% endblock %}
