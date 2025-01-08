@@ -8,10 +8,10 @@
         {% endblock %}
     </head>
     <body>
-    	
+    	<div class="container-fluid" style= "width: 100vw; height:auto; margin: 0; padding: 0;">
             {% block body %}
-            <div class="container-fluid d-flex flex-column align-items-center" style= "width: 100vw; background-color: black;">
-                <img class="pt-5 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" style="width: 15%; height: 15%;">
+            <div class="container-fluid d-flex flex-column align-items-center" style= "width: 100vw; heigth:auto; background-color: black;">
+                <img class="pt-5 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" style="width: 20%; height: 15%;">
 
 				{% block films %} {% endblock %}
 				{% block filmInfo %} {% endblock %}
@@ -22,6 +22,6 @@
 				{% block planetInfo %} {% endblock %}
             </div>
             {% endblock %}
-        
+        </div>
     </body>
 </html>

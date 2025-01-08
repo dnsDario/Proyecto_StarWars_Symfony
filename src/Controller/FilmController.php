@@ -15,7 +15,7 @@ class FilmController extends AbstractController
 #[Route('/films', name: 'films')]
 public function listFilms(EntityManagerInterface $doctrine)
 {
-    $films = $doctrine->getRepository(Film::class)->findAll();
+    $films = $doctrine->getRepository(Film::class)->findBy([], ['episode_id'=> 'ASC']);
     return $this->render(
         'films/films.html.twig',
         [
@@ -49,10 +49,10 @@ public function editFilm(EntityManagerInterface $doctrine, FilesManager $filesMa
         if ($image) {
             $ImageFilmName = $filesManager->upload(
                 $image,
-                $this->getParameter('images_directory')
+                $this->getParameter('images_directory_films') //configurar en services.yaml
             );
         }
-        $film->setImage("/images/" . $ImageFilmName);
+        $film->setImage("/images/films/" . $ImageFilmName);
         $doctrine->flush();
         return $this->redirectToRoute('editFilm', ['id' => $film->getEpisodeId()]);
     }
@@ -65,5 +65,44 @@ public function editFilm(EntityManagerInterface $doctrine, FilesManager $filesMa
             ]
         );
 }
+
+#[Route('/createFilm', name: 'createFilm')]
+public function createFilm(EntityManagerInterface $doctrine, FilesManager $filesManager, Request $request)
+{
+    $form = $this->createForm(EditCreateFilmType::class);
+    $form->handleRequest($request);
+
+    if ($form->isSubmitted() && $form->isValid()) {
+        $film = $form->getData();
+        $doctrine->persist($film);
+        $image = $form->get('image')->getData();
+        if ($image) {
+            $ImageFilmName = $filesManager->upload(
+                $image,
+                $this->getParameter('images_directory_films') //configurar en services.yaml
+            );
+        }
+        $film->setImage("/images/films/" . $ImageFilmName);
+        $doctrine->flush();
+        return $this->redirectToRoute('editFilm', ['id' => $film->getEpisodeId()]);
+    }
+
+    return $this->render(
+            'films/editCreateFilm.html.twig',
+            [
+                'filmForm' => $form
+            ]
+        );
+}
+
+#[Route("/deleteFilm/{id}", name: "deleteFilm")]
+    public function deletefilm(EntityManagerInterface $doctrine, $id){
+        $repository = $doctrine->getRepository(Film::class);
+        $film = $repository->find($id);
+        $doctrine->remove($film); 
+        $doctrine->flush(); 
+        $this->addFlash('success', 'Película borrada correctamente');
+        return $this->redirectToRoute('films');
+    }
 
 }

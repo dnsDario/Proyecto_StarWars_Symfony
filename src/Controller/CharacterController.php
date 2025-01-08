@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class CharacterController extends AbstractController
 
-{
+{   
     #[Route('/characters', name: 'characters')]
     public function listcharacters(EntityManagerInterface $doctrine)
     {
@@ -20,30 +20,90 @@ class CharacterController extends AbstractController
         return $this->render(
             'characters/characters.html.twig',
             [
-                'characters' => $characters
+            'characters' => $characters
             ]
         );
     }
-    /* El parámetro Request $request debe ir justo antes del parámetro $id, porque Symfony necesita primero instanciar la solicitud antes de poder extraer los parámetros de ruta, como $id. Esto se debe a que el objeto Request contiene toda la información sobre la solicitud HTTP, incluyendo los parámetros de ruta y los datos de entrada. */
-    #[Route('/editCharacter/{id}', name: 'editCharacter')]
-    public function editcharacter(EntityManagerInterface $doctrine, FilesManager $filesManager, Request $request, $id)
+    #[Route('/showCharacter/{id}', name: 'showCharacter')]
+    public function showCharacter(EntityManagerInterface $doctrine, $id)
     {
-        $character = $doctrine->getRepository(character::class)->find($id);
+        $character = $doctrine->getRepository(Character::class)->find($id);
+        return $this->render(
+            'characters/showCharacter.html.twig',
+            [
+            'Character' => $character
+            ]
+        );
+    }
+    
+    #[Route('/editCharacter/{id}', name: 'editCharacter')]
+    public function editCharacter(EntityManagerInterface $doctrine, FilesManager $filesManager, Request $request, $id)
+    {
+        $character = $doctrine->getRepository(Character::class)->findOneBy(['id'=> $id]);
         $form = $this->createForm(EditCreateCharacterType::class, $character);
         $form->handleRequest($request);
-
+    
         if ($form->isSubmitted() && $form->isValid()) {
             $character = $form->getData();
             $doctrine->persist($character);
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $ImageCharacterName = $filesManager->upload(
+                    $image,
+                    $this->getParameter('images_directory_characters') //configurar en services.yaml
+                );
+            }
+            $character->setImage("/images/characters/" . $ImageCharacterName);
             $doctrine->flush();
-            return $this->redirectToRoute('character', ['id' => $character->getId()]);
+            return $this->redirectToRoute('editCharacter', ['id' => $character->getId()]);
         }
-
+    
         return $this->render(
-            'characters/editCharacter.html.twig',
-            [
-                'character' => $character
-            ]
-        );
+                'characters/editCreateCharacter.html.twig',
+                [
+                    'Character' => $character,
+                    'CharacterForm' => $form
+                ]
+            );
     }
+    
+    #[Route('/createCharacter', name: 'createCharacter')]
+    public function createCharacter(EntityManagerInterface $doctrine, FilesManager $filesManager, Request $request)
+    {
+        $form = $this->createForm(EditCreateCharacterType::class);
+        $form->handleRequest($request);
+    
+        if ($form->isSubmitted() && $form->isValid()) {
+            $character = $form->getData();
+            $doctrine->persist($character);
+            $image = $form->get('image')->getData();
+            if ($image) {
+                $ImageCharacterName = $filesManager->upload(
+                    $image,
+                    $this->getParameter('images_directory_characters') //configurar en services.yaml
+                );
+            }
+            $character->setImage("/images/characters/" . $ImageCharacterName);
+            $doctrine->flush();
+            return $this->redirectToRoute('editCharacter', ['id' => $character->getId()]);
+        }
+    
+        return $this->render(
+                'characters/editCreateCharacter.html.twig',
+                [
+                    'CharacterForm' => $form
+                ]
+            );
+    }
+    
+    #[Route("/deleteCharacter/{id}", name: "deleteCharacter")]
+        public function deleteCharacter(EntityManagerInterface $doctrine, $id){
+            $repository = $doctrine->getRepository(Character::class);
+            $character = $repository->find($id);
+            $doctrine->remove($character); 
+            $doctrine->flush(); 
+            $this->addFlash('success', 'Película borrada correctamente');
+            return $this->redirectToRoute('characters');
+        }
+    
 }
