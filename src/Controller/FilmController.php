@@ -26,7 +26,7 @@ public function listFilms(EntityManagerInterface $doctrine)
 #[Route('/showFilm/{id}', name: 'showFilm')]
 public function showFilm(EntityManagerInterface $doctrine, $id)
 {
-    $film = $doctrine->getRepository(Film::class)->find($id);
+    $film = $doctrine->getRepository(Film::class)->findOneBy(['episode_id'=> $id]);
     return $this->render(
         'films/showFilm.html.twig',
         [
@@ -51,8 +51,8 @@ public function editFilm(EntityManagerInterface $doctrine, FilesManager $filesMa
                 $image,
                 $this->getParameter('images_directory_films') //configurar en services.yaml
             );
+            $film->setImage("/images/films/" . $ImageFilmName);
         }
-        $film->setImage("/images/films/" . $ImageFilmName);
         $doctrine->flush();
         return $this->redirectToRoute('editFilm', ['id' => $film->getEpisodeId()]);
     }
@@ -81,8 +81,8 @@ public function createFilm(EntityManagerInterface $doctrine, FilesManager $files
                 $image,
                 $this->getParameter('images_directory_films') //configurar en services.yaml
             );
+            $film->setImage("/images/films/" . $ImageFilmName);
         }
-        $film->setImage("/images/films/" . $ImageFilmName);
         $doctrine->flush();
         return $this->redirectToRoute('editFilm', ['id' => $film->getEpisodeId()]);
     }
@@ -97,8 +97,7 @@ public function createFilm(EntityManagerInterface $doctrine, FilesManager $files
 
 #[Route("/deleteFilm/{id}", name: "deleteFilm")]
     public function deletefilm(EntityManagerInterface $doctrine, $id){
-        $repository = $doctrine->getRepository(Film::class);
-        $film = $repository->find($id);
+        $film = $doctrine->getRepository(Film::class)->findOneBy(['episode_id'=> $id]);
         $doctrine->remove($film); 
         $doctrine->flush(); 
         $this->addFlash('success', 'Película borrada correctamente');

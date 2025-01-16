@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> {% endblock %}
+
+{% block planets %}
+
+	<div class="collections row row-cols-1 row-cols-md-2 mt-3 d-flex" style="width: 90%; height: auto; background-color: black; color">
+		{% for planet in planets %}
+			{% if planet.image %}
+				<div class="card d-flex align-items-center text-center" style="width: 15rem; height:auto; margin: 15px; background-color: black;">
+					<h4 class="card-header" style="color: white; height: 40px;">{{planet.name}}</h4>
+					<a href="{{path("showPlanet",{"id":planet.id})}}" class="" style="padding: 0px; width: auto; height: auto;">
+						<img src="{{planet.image}}" alt="planet" class="imgCollection card-img-top" style="width: 90%; height:350px; object-fit: contain;">
+					</a>
+					<div
+						style="display: flex; width: 100%; justify-content: space-around; ">
+						{# {% if is_granted('ROLE_ADMIN') %} #}
+						<a href="{{path("editPlanet", {"id":planet.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
+						<a href="{{path("deletePlanet", {"id":planet.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
+						{# {% endif %} #}
+					</div>
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
+{% endblock %}

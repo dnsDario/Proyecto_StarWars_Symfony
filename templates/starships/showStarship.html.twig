@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> {% endblock %}
+{% block showStarship %}
+<div class="row row-cols-1 row-cols-md-2 mt-3 d-flex flex-column justify-content-center align-items-center" style="width: 95vw; height: auto; background-color: black;">
+		<h2 style="color: yellow; font-size: 42px; font-family: 'Montserrat', sans-serif; font-weight: 500;">{{starship.name}}</h2>
+		<div class="tarjet d-flex flex-row justify-content-center align-items-center" style="width: 60%; height: 60vh; background-color: #353a40; border-radius: 50px; margin-bottom: 40px;">
+			<div class="imgTarjet" style="width: 100%; height: auto;">
+				<img src="{{(starship.image)}}" alt="film" class="card-img-top" style="width: 70%; height: 95%; object-fit: contain;">
+			</div>
+			<div class="textTarjet d-flex flex-column justify-content-center align-items-center" style="">
+				<div class="d-flex flex-column justify-content-center align-items-left" style="width: 95%; height: auto; color: yellow; font-weight: 500; font-family: 'Montserrat', sans-serif;">
+                    <p><strong>Modelo :</strong> {{starship.model}}</p>
+                    <p><strong>Fabricada por :</strong> {{starship.manufacturer}} días</p>
+                    <p><strong>Diámetro :</strong> {{starship.length}} metros</p>
+                    <p><strong>Coste :</strong> {{starship.costInCredits}} créditos imperiales</p>  
+                    <p><strong>Velocidad en atmósfera :</strong> {{starship.maxAtmospheringSpeed}} m/s</p>
+                    <p><strong>Capacidad de tripulación :</strong> {{starship.passengers}}</p>  
+                    <p><strong>Capacidad de carga :</strong> {{starship.cargoCapacity}}</p>
+                </div>
+            </div>
+        </div>
+
+
+    <h3 style="width: 95%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Películas en las que aparece {{starship.name}}</h3>
+        <div class="collections row row-cols-1 row-cols-md-5 mt-3 d-flex" style="width: 95%; height: auto;  background-color: black; padding-bottom: 50px;">
+            {% for film in starship.films %}
+                    <div class="card d-flex align-items-center text-center" style="width: 17rem; height:350px; margin-bottom: 50px; background-color: black;">
+                        <h4 class="card-header" style="color: white; height: 70px; font-size: clamp (16px, 2vw, 18px);">{{film.title}}</h4>
+                        <a href="{{path("showFilm",{"id":film.id})}}" class="" style="padding: 0px; width: auto; height: auto;">
+                            <img src="{{film.image}}" alt="film" class="card-img-top" style="width:100%; height:250px; object-fit: contain;">
+                        </a>
+                        <div style="display: flex; width: 100%; justify-content: space-evenly; margin-top: 10px;">
+                            {# {% if is_granted('ROLE_ADMIN') %} #}
+                            <a href="{{path("editFilm", {"id":film.episodeId})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
+                            <a href="{{path("deleteFilm", {"id":film.episodeId})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
+                            {# {% endif %} #}
+                        </div>
+                    </div>
+            {% endfor %}
+        </div> 
+    </div> 
+{% endblock %}

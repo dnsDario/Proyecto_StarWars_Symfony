@@ -19,6 +19,7 @@ class CharacterController extends AbstractController
         $characters = $doctrine->getRepository(Character::class)->findAll();
         return $this->render(
             'characters/characters.html.twig',
+
             [
             'characters' => $characters
             ]
@@ -31,7 +32,7 @@ class CharacterController extends AbstractController
         return $this->render(
             'characters/showCharacter.html.twig',
             [
-            'Character' => $character
+            'character' => $character
             ]
         );
     }
@@ -52,8 +53,8 @@ class CharacterController extends AbstractController
                     $image,
                     $this->getParameter('images_directory_characters') //configurar en services.yaml
                 );
+                $character->setImage("/images/characters/" . $ImageCharacterName);
             }
-            $character->setImage("/images/characters/" . $ImageCharacterName);
             $doctrine->flush();
             return $this->redirectToRoute('editCharacter', ['id' => $character->getId()]);
         }
@@ -61,8 +62,8 @@ class CharacterController extends AbstractController
         return $this->render(
                 'characters/editCreateCharacter.html.twig',
                 [
-                    'Character' => $character,
-                    'CharacterForm' => $form
+                    'character' => $character,
+                    'characterForm' => $form
                 ]
             );
     }
@@ -82,8 +83,8 @@ class CharacterController extends AbstractController
                     $image,
                     $this->getParameter('images_directory_characters') //configurar en services.yaml
                 );
+                $character->setImage("/images/characters/" . $ImageCharacterName);
             }
-            $character->setImage("/images/characters/" . $ImageCharacterName);
             $doctrine->flush();
             return $this->redirectToRoute('editCharacter', ['id' => $character->getId()]);
         }
@@ -91,7 +92,7 @@ class CharacterController extends AbstractController
         return $this->render(
                 'characters/editCreateCharacter.html.twig',
                 [
-                    'CharacterForm' => $form
+                    'characterForm' => $form
                 ]
             );
     }

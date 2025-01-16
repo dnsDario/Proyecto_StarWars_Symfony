@@ -34,18 +34,18 @@ class EditCreateCharacterType extends AbstractType
             ->add('species', TextType::class, ['label' => 'especie', 'attr' => ['placeholder' => 'especie']])
             ->add('films', EntityType::class, [
                 'class' => Film::class,
-                'choice_label' => 'id',
+                'choice_label' => 'episode_id',
                 'multiple' => true,
                 'expanded' => true,
             ])
             ->add('planet', EntityType::class, [
                 'class' => Planet::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'expanded' => true,
             ])
             ->add('starships', EntityType::class, [
                 'class' => Starships::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
                 'expanded' => true,
             ])

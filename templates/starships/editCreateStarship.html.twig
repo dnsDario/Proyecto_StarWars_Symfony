@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block editCreateStarship %}
+<div class="container" style="margin-top: 30px; margin-bottom: 30px; border: 0.5px solid black; padding: 20px; border-radius: 10px; background-color: white;">
+    {% if starship is defined %}
+    <h1 class="text-center mb-3">Editar Nave Espacial</h1>
+        {% if starship.image is defined %}
+            <div class="d-flex justify-content-center">
+                <img src="{{starship.image}}" alt="starship" class="card-img-top align-self-center" style="width: 250px; height: auto;">
+            </div>
+        {% endif %}
+    {{form(starshipForm)}} 
+    {% else %}
+    <h1 class="text-center mb-3">Crear Nueva Nave Espacial</h1>
+    {{form(starshipForm)}}
+    {% endif %}
+</div>
+{% endblock %}

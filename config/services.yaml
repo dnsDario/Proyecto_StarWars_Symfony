@@ -8,6 +8,7 @@ parameters:
     images_directory_characters: '%kernel.project_dir%/public/images/characters'
     images_directory_films: '%kernel.project_dir%/public/images/films'
     images_directory_planets: '%kernel.project_dir%/public/images/planets'
+    images_directory_starships: '%kernel.project_dir%/public/images/starships'
 services:
     # default configuration for services in *this* file
     _defaults:

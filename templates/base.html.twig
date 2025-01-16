@@ -3,23 +3,59 @@
     <head>
         <meta charset="UTF-8">
         <title>{% block title %}STAR WARS{% endblock %}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
         {% block stylesheets %}
         {% endblock %}
     </head>
     <body>
-    	<div class="container-fluid" style= "width: 100vw; height:auto; margin: 0; padding: 0;">
+    	<div class="container-fluid" style= "height:auto; margin: 0; padding: 0; background-color: black;">
             {% block body %}
-            <div class="container-fluid d-flex flex-column align-items-center" style= "width: 100vw; heigth:auto; background-color: black;">
-                <img class="pt-5 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" style="width: 20%; height: 15%;">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 85vw; margin: 0 auto; border-radius: 5px;">
+					<button class=" navbar-toggler" type=" button" data-toggle=" collapse" data-target=" #navbarNavAltMarkup" aria-controls=" navbar"></button>
+					<div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="width: 70%; margin: 0 auto;">
+						<div class="navbar-nav" style="width: 100%;">
+
+							{# {% if not app.user %} #}
+							{# <a class="nav-link active mr-auto ml-auto" href="/login">Iniciar Sesión
+								<span class="sr-only">(current)</span>
+							</a>
+							<a class="nav-link active mr-auto ml-auto" href="{{path("newUser")}}">Registrarse
+							</a> #}
+							{# {% else %} #}
+							<a class="nav-link mr-auto ml-auto" href="{{path("films")}}">Películas</a>
+							{# {% if is_granted('ROLE_ADMIN') %} #}
+							<a class="nav-link mr-auto ml-auto" href="{{path("characters")}}">Personajes</a>
+							<a class="nav-link mr-auto ml-auto" href="{{path("planets")}}">Planetas</a>
+							<a class="nav-link mr-auto ml-auto" href="{{path("starships")}}">Naves Espaciales</a>
+							{# {% endif %}
+							{% endif %} #}
+						</div>
+					</div>
+					{# {% if app.user %}
+					<h4 class="navbar-nav" style="display: flex; align-items: center; width: auto; height: 20px; font-size:14px;  background-color: dark; color: white;"> Bienvenido, {{ app.user.name }} </h4>
+					<a href="{{ path('app_logout') }}" style="width:60px; margin-inline:20px;">Logout</a>
+					{% endif %} #}
+				</nav>
+            <div class="container-fluid d-flex flex-column align-items-center" style= "heigth:auto; background-color: black; margin: 0; padding: 0;">
+                <img class="pt-2 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" style="width: 15%; height: auto;">
 
 				{% block films %} {% endblock %}
-				{% block filmInfo %} {% endblock %}
+				{% block showFilm %} {% endblock %}
                 {% block editCreateFilm %} {% endblock %}
-				{% block charactersOfFilm %} {% endblock %}
-				{% block characterInfo %} {% endblock %}
-				{% block planetsOfFilm %} {% endblock %}
-				{% block planetInfo %} {% endblock %}
+
+				{% block characters %} {% endblock %}
+				{% block showCharacter %} {% endblock %}
+				{% block editCreateCharacter %} {% endblock %}
+
+				{% block planets %} {% endblock %}
+				{% block showPlanet %} {% endblock %}
+				{% block editCreatePlanet %} {% endblock %}
+
+				{% block starships %} {% endblock %}
+				{% block showStarship %} {% endblock %}
+				{% block editCreateStarship %} {% endblock %}
             </div>
             {% endblock %}
         </div>

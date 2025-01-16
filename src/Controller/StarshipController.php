@@ -10,97 +10,97 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class StarshipsController extends AbstractController
+class StarshipController extends AbstractController
 
 {   
-    #[Route('/starship', name: 'starship')]
+    #[Route('/starships', name: 'starships')]
     public function listStarship(EntityManagerInterface $doctrine)
     {
-        $starship = $doctrine->getRepository(Starships::class)->findAll();
+        $starships = $doctrine->getRepository(Starships::class)->findAll();
         return $this->render(
-            'starship/starship.html.twig',
+            'starships/starships.html.twig',
+            [
+            'starships' => $starships
+            ]
+        );
+    }
+    #[Route('/showStarship/{id}', name: 'showStarship')]
+    public function showStarships(EntityManagerInterface $doctrine, $id)
+    {
+        $starship = $doctrine->getRepository(Starships::class)->find($id);
+        return $this->render(
+            'starships/showStarship.html.twig',
             [
             'starship' => $starship
             ]
         );
     }
-    #[Route('/showStarships/{id}', name: 'showStarships')]
-    public function showStarships(EntityManagerInterface $doctrine, $id)
-    {
-        $Starships = $doctrine->getRepository(Starships::class)->find($id);
-        return $this->render(
-            'starship/showStarships.html.twig',
-            [
-            'starships' => $Starships
-            ]
-        );
-    }
     
-    #[Route('/editStarships/{id}', name: 'editStarships')]
+    #[Route('/editStarship/{id}', name: 'editStarship')]
     public function editStarships(EntityManagerInterface $doctrine, FilesManager $filesManager, Request $request, $id)
     {
-        $Starships = $doctrine->getRepository(Starships::class)->findOneBy(['id'=> $id]);
-        $form = $this->createForm(EditCreateStarshipType::class, $Starships);
+        $starship = $doctrine->getRepository(Starships::class)->findOneBy(['id'=> $id]);
+        $form = $this->createForm(EditCreateStarshipType::class, $starship);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            $Starships = $form->getData();
-            $doctrine->persist($Starships);
+            $starship = $form->getData();
+            $doctrine->persist($starship);
             $image = $form->get('image')->getData();
             if ($image) {
                 $ImageStarshipsName = $filesManager->upload(
                     $image,
-                    $this->getParameter('images_directory_starship') //configurar en services.yaml
+                    $this->getParameter('images_directory_starships') //configurar en services.yaml
                 );
+                $starship->setImage("/images/starships/" . $ImageStarshipsName);
             }
-            $Starships->setImage("/images/starship/" . $ImageStarshipsName);
             $doctrine->flush();
-            return $this->redirectToRoute('editStarships', ['id' => $Starships->getId()]);
+            return $this->redirectToRoute('editStarship', ['id' => $starship->getId()]);
         }
     
         return $this->render(
-                'starship/editCreateStarships.html.twig',
+                'starships/editCreateStarship.html.twig',
                 [
-                    'starships' => $Starships,
-                    'starshipsForm' => $form
+                    'starship' => $starship,
+                    'starshipForm' => $form
                 ]
             );
     }
     
-    #[Route('/createStarships', name: 'createStarships')]
+    #[Route('/createStarship', name: 'createStarship')]
     public function createStarships(EntityManagerInterface $doctrine, FilesManager $filesManager, Request $request)
     {
         $form = $this->createForm(EditCreateStarshipType::class);
         $form->handleRequest($request);
     
         if ($form->isSubmitted() && $form->isValid()) {
-            $Starships = $form->getData();
-            $doctrine->persist($Starships);
+            $starship = $form->getData();
+            $doctrine->persist($starship);
             $image = $form->get('image')->getData();
             if ($image) {
                 $ImageStarshipsName = $filesManager->upload(
                     $image,
                     $this->getParameter('images_directory_starship') //configurar en services.yaml
                 );
+                $starship->setImage("/images/starship/" . $ImageStarshipsName);
             }
-            $Starships->setImage("/images/starship/" . $ImageStarshipsName);
             $doctrine->flush();
-            return $this->redirectToRoute('editStarships', ['id' => $Starships->getId()]);
+            return $this->redirectToRoute('editStarship', ['id' => $starship->getId()]);
         }
     
         return $this->render(
-                'starship/editCreateStarships.html.twig',
+                'starships/editCreateStarship.html.twig',
                 [
-                    'starshipsForm' => $form
+                    'starshipForm' => $form
                 ]
             );
     }
     
-    #[Route("/deleteStarships/{id}", name: "deleteStarships")]
+    #[Route("/deleteStarship/{id}", name: "deleteStarship")]
         public function deleteStarships(EntityManagerInterface $doctrine, $id){
             $repository = $doctrine->getRepository(Starships::class);
-            $Starships = $repository->find($id);
-            $doctrine->remove($Starships); 
+            $starship = $repository->find($id);
+            $doctrine->remove($starship); 
             $doctrine->flush(); 
             $this->addFlash('success', 'Nave espacial borrada correctamente');
             return $this->redirectToRoute('starship');

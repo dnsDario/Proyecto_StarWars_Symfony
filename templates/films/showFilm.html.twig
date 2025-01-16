@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> {% endblock %}
+{% block showFilm %}
+	<div class="row row-cols-1 row-cols-md-2 mt-3 d-flex flex-column justify-content-center align-items-center" style="width: 95vw; height: auto; background-color: black;">
+		<h2 style="color: yellow; font-size: 42px; font-family: 'Montserrat', sans-serif; font-weight: 500;">{{film.title}}</h2>
+		<div class="tarjet d-flex flex-row justify-content-center align-items-center" style="width: 60%; height: 60vh; background-color: #353a40; border-radius: 50px; margin-bottom: 40px;">
+			<div class="imgTarjet" style="width: 100%; height: auto;">
+				<img src="{{(film.image)}}" alt="film" class="card-img-top" style="width: 70%; height: 95%; object-fit: contain;">
+			</div>
+			<div class="textTarjet d-flex flex-column justify-content-center align-items-center" style="">
+				<div class="d-flex flex-column justify-content-center align-items-left" style="width: 95%; height: auto; color: yellow; font-weight: 500; font-family: 'Montserrat', sans-serif; text-align: justify">
+					<p><strong>Episodio nº :</strong>
+						{{film.episodeId}}</p>
+					<p><strong>Director :</strong>
+						{{film.director}}</p>
+					<p><strong>Producido por :</strong>
+						{{film.producer}}</p>
+					<p><strong>Fecha de estreno :</strong>
+						{{film.releaseDate}}</p>
+					<p style="font-size: 14px;">{{film.openingCrawl}}</p>
+				</div>
+
+			</div>
+		</div>
+
+		<h3 style="width: 90%; margin-top:20px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Planetas en
+			{{film.title}}</h3>
+		<div class="collections row row-cols-1 row-cols-md-5 mt-3 d-flex" style="width: 95%; height: auto;  background-color: black;">
+			{% for planet in film.planets %}
+				<div class="card d-flex flex-grow-1 align-items-center text-center" style="width: 17rem; height:350px; margin-bottom: 20px; background-color: black;">
+					<h4 class="card-header" style="color: white; height: 70px; font-size: clamp (16px, 2vw, 18px);">{{planet.name}}</h4>
+					<a href="{{path("showPlanet", {"id": planet.id})}} " class="" style="padding: 0px; width: auto; height: auto;">
+						<img src="{{planet.image}}" alt="planet" class="card-img-top" style="width:90%; height:250px; object-fit: contain;">
+					</a>
+					<div
+						style="display: flex; width: 100%; justify-content: space-evenly; ">
+						{# {% if is_granted('ROLE_ADMIN') %} #}
+						<a href="{{path("editPlanet", {"id":planet.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
+						<a href="{{path("deletePlanet", {"id":planet.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
+						{# {% endif %} #}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<h3 style="width: 90%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Naves Espaciales en
+			{{film.title}}</h3>
+		<div class="collections row row-cols-1 row-cols-md-5 mt-3 d-flex" style="width: 95%; height: auto;  background-color: black;">
+			{% for starship in film.starships %}
+				<div class="card d-flex align-items-center text-center" style="width: 17rem; height:350px; margin-bottom: 40px; background-color: black;">
+					<h4 class="card-header" style="color: white; height: 70px; font-size: clamp (16px, 2vw, 18px);">{{starship.name}}</h4>
+					<a href="{{path("showStarship",{"id":starship.id})}}" class="" style="padding: 0px; width: auto; height: auto;">
+						<img src="{{starship.image}}" alt="starship" class="card-img-top" style="width:90%; height:250px; object-fit: contain;">
+					</a>
+					<div
+						style="display: flex; width: 100%; justify-content: space-evenly;">
+						{# {% if is_granted('ROLE_ADMIN') %} #}
+						<a href="{{path("editStarship", {"id":starship.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
+						<a href="{{path("deleteStarship", {"id":starship.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
+						{# {% endif %} #}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		<h3 style="width: 90%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Personajes en
+			{{film.title}}:</h3>
+
+		<div class="collections row row-cols-1 row-cols-md-2 mt-3 d-flex" style="width: 95%; height: auto;  background-color: black; padding-bottom: 50px;">
+			{% for character in film.characters %}
+				<div class="card d-flex align-items-center text-center" style="width: 17rem; height:350px; margin-bottom: 40px; background-color: black;">
+					<h4 class="card-header" style="color: white; height: 70px; font-size: clamp (16px, 2vw, 18px);">{{character.name}}</h4>
+					<a href="{{path("showCharacter",{"id":character.id})}}" class="" style="padding: 0px; width: auto; height: auto;">
+						<img src="{{character.image}}" alt="character" class="card-img-top" style="width:95%; height:250px; object-fit: contain;">
+					</a>
+					<div
+						style="display: flex; width: 100%; justify-content: space-evenly; margin-top: 10px;">
+						{# {% if is_granted('ROLE_ADMIN') %} #}
+						<a href="{{path("editCharacter", {"id":character.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
+						<a href="{{path("deleteCharacter", {"id":character.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
+						{# {% endif %} #}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endblock %}
+

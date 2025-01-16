@@ -28,6 +28,7 @@ class PlanetController extends AbstractController
     public function showPlanet(EntityManagerInterface $doctrine, $id)
     {
         $planet = $doctrine->getRepository(Planet::class)->find($id);
+        
         return $this->render(
             'planets/showPlanet.html.twig',
             [
@@ -52,8 +53,8 @@ class PlanetController extends AbstractController
                     $image,
                     $this->getParameter('images_directory_planets') //configurar en services.yaml
                 );
+                $planet->setImage("/images/planets/" . $ImagePlanetName);
             }
-            $planet->setImage("/images/planets/" . $ImagePlanetName);
             $doctrine->flush();
             return $this->redirectToRoute('editPlanet', ['id' => $planet->getId()]);
         }
@@ -82,8 +83,8 @@ class PlanetController extends AbstractController
                     $image,
                     $this->getParameter('images_directory_planets') //configurar en services.yaml
                 );
+                $planet->setImage("/images/planets/" . $ImagePlanetName);
             }
-            $planet->setImage("/images/planets/" . $ImagePlanetName);
             $doctrine->flush();
             return $this->redirectToRoute('editPlanet', ['id' => $planet->getId()]);
         }

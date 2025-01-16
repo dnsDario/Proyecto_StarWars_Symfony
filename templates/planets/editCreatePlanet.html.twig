@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block editCreatePlanet %}
+<div class="container" style="margin-top: 30px; margin-bottom: 30px; border: 0.5px solid black; padding: 20px; border-radius: 10px; background-color: white;">
+    {% if planet is defined %}
+    <h1 class="text-center mb-3">Editar Planeta</h1>
+        {% if planet.image is defined %}
+            <div class="d-flex justify-content-center">
+                <img src="{{planet.image}}" alt="planet" class="card-img-top align-self-center" style="width: 250px; height: auto;">
+            </div>
+        {% endif %}
+    {{form(planetForm)}} 
+    {% else %}
+    <h1 class="text-center mb-3">Crear Nuevo Planeta</h1>
+    {{form(planetForm)}}
+    {% endif %}
+</div>
+{% endblock %}
