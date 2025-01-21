@@ -1,5 +1,7 @@
+
 .collections {
     justify-content: flex-start;
+    
 }
 .imgCollection{
     width: 100% !important;
@@ -27,8 +29,12 @@
     padding: 20px;
 }
 
+
  
-@media (max-width: 1123px) {
+@media (max-width : 1123px) {
+    .cardsResponsive{
+        width: 30rem !important;
+    }
     .collections {
         width: 90% !important;
         justify-content: space-around !important;

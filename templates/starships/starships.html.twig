@@ -13,10 +13,10 @@
 					</a>
 					<div
 						style="display: flex; width: 100%; justify-content: space-around; ">
-						{# {% if is_granted('ROLE_ADMIN') %} #}
+						{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{path("editStarship", {"id":starships.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
 						<a href="{{path("deleteStarship", {"id":starships.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
-						{# {% endif %} #}
+						{% endif %}
 					</div>
 				</div>
 			{% endif %}

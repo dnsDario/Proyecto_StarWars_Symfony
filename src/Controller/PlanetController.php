@@ -56,7 +56,7 @@ class PlanetController extends AbstractController
                 $planet->setImage("/images/planets/" . $ImagePlanetName);
             }
             $doctrine->flush();
-            return $this->redirectToRoute('editPlanet', ['id' => $planet->getId()]);
+            return $this->redirectToRoute('showPlanet', ['id' => $planet->getId()]);
         }
     
         return $this->render(
@@ -86,7 +86,7 @@ class PlanetController extends AbstractController
                 $planet->setImage("/images/planets/" . $ImagePlanetName);
             }
             $doctrine->flush();
-            return $this->redirectToRoute('editPlanet', ['id' => $planet->getId()]);
+            return $this->redirectToRoute('showPlanet', ['id' => $planet->getId()]);
         }
     
         return $this->render(

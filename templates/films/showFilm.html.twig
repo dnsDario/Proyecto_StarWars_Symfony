@@ -34,10 +34,10 @@
 					</a>
 					<div
 						style="display: flex; width: 100%; justify-content: space-evenly; ">
-						{# {% if is_granted('ROLE_ADMIN') %} #}
+						{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{path("editPlanet", {"id":planet.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
 						<a href="{{path("deletePlanet", {"id":planet.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
-						{# {% endif %} #}
+						{% endif %}
 					</div>
 				</div>
 			{% endfor %}
@@ -53,10 +53,10 @@
 					</a>
 					<div
 						style="display: flex; width: 100%; justify-content: space-evenly;">
-						{# {% if is_granted('ROLE_ADMIN') %} #}
+						{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{path("editStarship", {"id":starship.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
 						<a href="{{path("deleteStarship", {"id":starship.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
-						{# {% endif %} #}
+						{% endif %}
 					</div>
 				</div>
 			{% endfor %}
@@ -74,10 +74,10 @@
 					</a>
 					<div
 						style="display: flex; width: 100%; justify-content: space-evenly; margin-top: 10px;">
-						{# {% if is_granted('ROLE_ADMIN') %} #}
+						{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{path("editCharacter", {"id":character.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
 						<a href="{{path("deleteCharacter", {"id":character.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
-						{# {% endif %} #}
+						{% endif %}
 					</div>
 				</div>
 			{% endfor %}

@@ -1,9 +1,6 @@
 {% extends 'base.html.twig' %}
 
 {% block editCreateCharacter %}
-<div style="width: 95%; height: auto; display: flex; justify-content: space-between;">
-    <a href="{{path("characters")}}" class="btn btn-info" style="width: auto; text-align:center; height: 30px; color: yellow; font-size: 14px; font-family: 'Montserrat', sans-serif; font-weight: 600;">⬅ Volver a lista de Personajes</a>
-</div>
 <div class="container" style="margin-top: 30px; margin-bottom: 30px; border: 0.5px solid black; padding: 20px; border-radius: 10px; background-color: white;">
     {% if character is defined %}
     <h1 class="text-center mb-3">Editar Personaje</h1>

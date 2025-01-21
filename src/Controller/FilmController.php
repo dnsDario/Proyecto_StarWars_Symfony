@@ -54,7 +54,7 @@ public function editFilm(EntityManagerInterface $doctrine, FilesManager $filesMa
             $film->setImage("/images/films/" . $ImageFilmName);
         }
         $doctrine->flush();
-        return $this->redirectToRoute('editFilm', ['id' => $film->getEpisodeId()]);
+        return $this->redirectToRoute('showFilm', ['id' => $film->getEpisodeId()]);
     }
 
     return $this->render(
@@ -84,7 +84,7 @@ public function createFilm(EntityManagerInterface $doctrine, FilesManager $files
             $film->setImage("/images/films/" . $ImageFilmName);
         }
         $doctrine->flush();
-        return $this->redirectToRoute('editFilm', ['id' => $film->getEpisodeId()]);
+        return $this->redirectToRoute('showFilm', ['id' => $film->getEpisodeId()]);
     }
 
     return $this->render(

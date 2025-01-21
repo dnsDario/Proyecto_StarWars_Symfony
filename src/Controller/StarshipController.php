@@ -55,7 +55,7 @@ class StarshipController extends AbstractController
                 $starship->setImage("/images/starships/" . $ImageStarshipsName);
             }
             $doctrine->flush();
-            return $this->redirectToRoute('editStarship', ['id' => $starship->getId()]);
+            return $this->redirectToRoute('showStarship', ['id' => $starship->getId()]);
         }
     
         return $this->render(
@@ -85,7 +85,7 @@ class StarshipController extends AbstractController
                 $starship->setImage("/images/starship/" . $ImageStarshipsName);
             }
             $doctrine->flush();
-            return $this->redirectToRoute('editStarship', ['id' => $starship->getId()]);
+            return $this->redirectToRoute('showStarship', ['id' => $starship->getId()]);
         }
     
         return $this->render(

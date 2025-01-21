@@ -6,40 +6,55 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
-        {% block stylesheets %}
-        {% endblock %}
+		<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> 
+		<!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script> -->
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> 
+		<script src="https://kit.fontawesome.com/06a44ad564.js" crossorigin="anonymous"></script>
+        {% block stylesheets %}<link rel="stylesheet" href="{{ asset('css/styles.css') }}">{% endblock %}
     </head>
     <body>
     	<div class="container-fluid" style= "height:auto; margin: 0; padding: 0; background-color: black;">
             {% block body %}
-            <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 85vw; margin: 0 auto; border-radius: 5px;">
-					<button class=" navbar-toggler" type=" button" data-toggle=" collapse" data-target=" #navbarNavAltMarkup" aria-controls=" navbar"></button>
-					<div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="width: 70%; margin: 0 auto;">
-						<div class="navbar-nav" style="width: 100%;">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="width: 85%; margin: 0 auto; border-radius: 5px; font-size: 18px;">
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation" style="font-size: 20px; height: 60px; border: none;">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+			<div style="display: flex; flex-direction:column; align-content: space-between; width: 100%;">
+				{% if is_granted('ROLE_USER') %}
+				<div class="navbar-nav" style="width: 100%;">
+					{% if app.user %}
+							<a class="nav-link" href="{{ path('films') }}" style="width: 250px; padding: 5px;"><i class="fa-solid fa-film"></i> Películas</a>
+							<a class="nav-link" href="{{ path('characters') }}" style="width: 250px; padding: 5px;"><i class="fa-solid fa-person-through-window"></i> Personajes</a>
+							<a class="nav-link" href="{{ path('planets') }}" style="width: 250px; padding: 5px;"><i class="fa-solid fa-globe"></i> Planetas</a>
+							<a class="nav-link" href="{{ path('starships') }}" style="width: 250px; padding: 5px;"><i class="fa-brands fa-avianex"></i> Naves Espaciales</a>
+					{% endif %}
+				</div>
+				{% endif %}
+				{% if is_granted('ROLE_ADMIN') %}
+				<div class="navbar-nav" style="width: 100%;">	
+					<a class="nav-link" href="{{ path('createFilm') }}" style="width: 250px; padding: 5px;"><i class="fa-solid fa-film"></i> Crear Película</a>
+					<a class="nav-link" href="{{ path('createCharacter') }}" style="width: 250px; padding: 5px;"><i class="fa-solid fa-person-through-window"></i> Crear Personaje</a>
+					<a class="nav-link" href="{{ path('createPlanet') }}" style="width: 250px; padding: 5px;"><i class="fa-solid fa-globe"></i> Crear Planeta</a>
+					<a class="nav-link" href="{{ path('createStarship') }}" style="width: 250px; padding: 5px;"><i class="fa-brands fa-avianex"></i> Crear Nave Espacial</a>
+				</div>
+				{% endif %}
+				</div>
+			</div>
+			{% if app.user %}
+			<div style="display:flex; flex-direction:row; justify-content:flex-end; align-items: center; font-size: 16px;">
+				<p class="navbar-nav" style="color: white;">
+					Bienvenido,
+					{{ app.user.name }}
+				</p>
+				<a class="nav-link mr-auto ml-auto" href="{{ path('app_logout') }}" style="color: orange;">Logout</a>
+			</div>
+			{% endif %}
+		</nav>
 
-							{# {% if not app.user %} #}
-							{# <a class="nav-link active mr-auto ml-auto" href="/login">Iniciar Sesión
-								<span class="sr-only">(current)</span>
-							</a>
-							<a class="nav-link active mr-auto ml-auto" href="{{path("newUser")}}">Registrarse
-							</a> #}
-							{# {% else %} #}
-							<a class="nav-link mr-auto ml-auto" href="{{path("films")}}">Películas</a>
-							{# {% if is_granted('ROLE_ADMIN') %} #}
-							<a class="nav-link mr-auto ml-auto" href="{{path("characters")}}">Personajes</a>
-							<a class="nav-link mr-auto ml-auto" href="{{path("planets")}}">Planetas</a>
-							<a class="nav-link mr-auto ml-auto" href="{{path("starships")}}">Naves Espaciales</a>
-							{# {% endif %}
-							{% endif %} #}
-						</div>
-					</div>
-					{# {% if app.user %}
-					<h4 class="navbar-nav" style="display: flex; align-items: center; width: auto; height: 20px; font-size:14px;  background-color: dark; color: white;"> Bienvenido, {{ app.user.name }} </h4>
-					<a href="{{ path('app_logout') }}" style="width:60px; margin-inline:20px;">Logout</a>
-					{% endif %} #}
-				</nav>
+
             <div class="container-fluid d-flex flex-column align-items-center" style= "heigth:auto; background-color: black; margin: 0; padding: 0;">
-                <img class="pt-2 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" style="width: 15%; height: auto;">
+                <img class="pt-2 " src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Star_Wars_Logo.svg/2560px-Star_Wars_Logo.svg.png" style="width: 250px; height: auto;">
 
 				{% block films %} {% endblock %}
 				{% block showFilm %} {% endblock %}
@@ -56,6 +71,8 @@
 				{% block starships %} {% endblock %}
 				{% block showStarship %} {% endblock %}
 				{% block editCreateStarship %} {% endblock %}
+
+				{% block newUser %} {% endblock %}
             </div>
             {% endblock %}
         </div>

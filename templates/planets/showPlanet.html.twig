@@ -49,10 +49,10 @@
                         <img src="{{film.image}}" alt="film" class="card-img-top" style="width:100%; height:250px; object-fit: contain;">
                     </a>
                     <div style="display: flex; width: 100%; justify-content: space-evenly;">
-                        {# {% if is_granted('ROLE_ADMIN') %} #}
+                        {% if is_granted('ROLE_ADMIN') %}
                         <a href="{{path("editFilm", {"id":film.episodeId})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
                         <a href="{{path("deleteFilm", {"id":film.episodeId})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>
-                        {# {% endif %} #}
+                        {% endif %}
                     </div>
                 </div>
         {% endfor %}
