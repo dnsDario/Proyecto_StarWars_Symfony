@@ -1,75 +1,122 @@
 
-.collections {
-    justify-content: flex-start;
-    
-}
-.imgCollection{
-    width: 100% !important;
-    height: 350px !important;
-}
-.tarjet{
-    font-size: clamp(16px, 2.5vw, 18px) !important;
+
+.tarjet {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 60%; 
+    height: auto; 
+    padding: 20px; 
+    background-color: #353a40; 
+    border-radius: 30px; 
+    margin-bottom: 40px;
+    font-size: clamp(14px, 2vw, 18px);
 }
 
-.imgTarjet{
+.imgTarjet {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    width:50% !important;
-    height: 90% !important;
-}
-.imgTarjet img{
-    width: 70%;
+    width: 50%;
+    height: 100%;
 }
 
-.textTarjet{
-    width: 50% !important;
-    height: 45% !important;
-    padding: 20px;
+.imgTarjet img {
+    object-fit: contain;
+    width: 60%;
+    border-radius: 10px;
+}
+
+.textTarjet {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    padding: 10px;
+    font-size: 16px;
+    text-align: justify;
+    color: yellow; 
+    font-weight: 500; 
+    font-family: 'Montserrat', sans-serif;
+}
+
+.collections {
+    display: flex;
+    flex-flow: row wrap;
+    width: 90%;
+    margin: 10px;
+}
+.card{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: calc(100% / 5 - 30px);
+    height: auto;
+    margin-inline: 15px;
+    margin-block: 20px;
+    background-color: black;
+}
+.card a img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    margin-bottom: 15px;
 }
 
 
- 
-@media (max-width : 1123px) {
-    .cardsResponsive{
-        width: 30rem !important;
-    }
-    .collections {
-        width: 90% !important;
-        justify-content: space-around !important;
-    }
-    .imgCollection{
-        width: 90% !important;
-        height: 300px !important;
-    }
-    .tarjet{
-        width: 85% !important;
-        flex-direction: column !important;
-        justify-content: center;
-    }
-    .imgTarjet{
-        width: 95% !important;
-        height: 55% !important;
-        margin-top: 20px;
-    }
-    .imgTarjet img{
+@media (width < 1124px) {
+    .tarjet {
+        flex-direction: row;
         width: 90%;
+        justify-content: space-between;
+    }
+    .imgTarjet {
+        width: 45%;
         height: 95%;
     }
-
-    .textTarjet{
-        width: 90% !important;
-        height: 45% !important;
+    .imgTarjet img {
+        width: 95%;
     }
-    .textTarjet div{
-        width: auto !important;
-
+    .textTarjet {
+        width: 55%;
+        height: 100%;
+        padding-left: 20px;
     }
-    .textTarjet p{
-        font-size: 22px !important;
+    .textTarjet div {
+        width: 95%;
+    }
+    .card {
+        width: calc(100% / 3 - 30px);
+    }
+    .card a img {
+        height: 200px;
     }
     
+    .cardsResponsive {
+        width: 30rem;
+    }
+    
+}
 
-
+@media (width < 768px) {
+    .tarjet {
+        flex-direction: column;
+        width: 95%;
+    }
+    .imgTarjet {
+        width: 90%;
+        height: auto;
+    }
+    .textTarjet {
+        width: 100%;
+        height: auto;
+        margin-top:20px;
+    }
+    .card {
+        width: calc(100% / 2 - 30px);
+        height: 350px;
+    }
 }

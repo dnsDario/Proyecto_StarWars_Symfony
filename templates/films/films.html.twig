@@ -2,13 +2,13 @@
 {% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> {% endblock %}
 
 {% block films %}
-		<div class="collections row row-cols-1 row-cols-md-3 mt-3 d-flex" style="width: 90%; height: auto; background-color: black; color">
+		<div class="collections" >
 		{% for film in films %}
-			<div class="card" style="width: 15rem; height:auto; margin: 15px; background-color: black;">
-				<h4 class="card-header text-center" style="color: white; height: 60px; font-size: 22px;">{{film.title}}</h4>
-				<p class="card-header text-center" style="color: white; height: 35px; font-size: 14px;">Episodio {{film.episodeId}}</p>
-				<a href="{{path("showFilm",{"id":film.episodeId})}}" class="" style="padding: 0px; width: auto; height: auto;">
-					<img src="{{film.image}}" alt="film" class="imgCollection card-img-top" style="height:200px; object-fit: contain;">
+			<div class="card" >
+				<h4 class="card-header text-center" style="color: white; height: 60px; font-size: 20px;">{{film.title}}</h4>
+				<p class="card-header text-center" style="color: white; height: 35px; font-size: 16px;">Episodio {{film.episodeId}}</p>
+				<a href="{{path("showFilm",{"id":film.episodeId})}}" >
+					<img src="{{film.image}}" alt="film" class="card-img-top" style="height: 350px;">
 				</a>
 				<div class="card-body">
 					<p class="card-text text-justify" style="overflow:hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; color: white;">{{film.openingCrawl}}</p>

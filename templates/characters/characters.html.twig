@@ -2,12 +2,12 @@
 {% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> {% endblock %}
 
 {% block characters %}
-<div class="collections row row-cols-1 row-cols-sm-3 row-cols-md-2 mt-3 d-flex" style="width: 90%; height: auto; background-color: black;">
+<div class="collections">
     {% for character in characters %}
-        <div class="card d-flex align-items-center text-center" style="width: 15rem; height:auto; margin: 16px; margin-bottom: 50px; background-color: black; font-family: 'Montserrat', sans-serif;">
+        <div class="card">
             <h4 class="card-header" style="color: white; height: 35px; font-size: 20px;">{{ character.name }}</h4>
             <a href="{{ path('showCharacter', { 'id': character.id }) }}" class="" style="padding: 0px; margin: 10px; width: auto; height: auto;">
-                <img src="{{ character.image }}" alt="character" class="imgCollection card-img-top" style="height: 400px; object-fit: contain;">
+                <img src="{{ character.image }}" alt="character" class="card-img-top" style="height: 350px;">
             </a>
             <p style="color: white; height: 20px; font-size: 14px;">{{ character.species }}</p>
             <div style="display: flex; width: 100%; justify-content: space-evenly;">
