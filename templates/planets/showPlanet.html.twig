@@ -19,7 +19,7 @@
         </div>
     </div>
 
-<h3 style="width: 90%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">{{planet.name}} es Planeta Natal de</h3>
+<h3 style="width: 90%; font-size: clamp(24px, 2.5vw, 32px); margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">{{planet.name}} es Planeta Natal de</h3>
 <div class="collections">
 	{% for character in planet.characters %}
 		<div class="card">
@@ -38,7 +38,7 @@
 	{% endfor %}
 </div>
 
-<h3 style="width: 90%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Películas en las que aparece {{planet.name}}</h3>
+<h3 style="width: 90%; font-size: clamp(24px, 2.5vw, 32px); margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Películas en las que aparece {{planet.name}}</h3>
     <div class="collections">
         {% for film in planet.films %}
                 <div class="card">

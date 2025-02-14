@@ -7,12 +7,11 @@
 		{% for starships in starships %}
 			{% if starships.image %}
 				<div class="card ">
-					<h4 class="card-header" style="color: white; height: 40px;">{{starships.name}}</h4>
+					<h4 style="color: white; height: 30px; font-size: clamp(16px, 2vw, 20px); margin:0px;">{{starships.name}}</h4>
 					<a href="{{path("showStarship",{"id":starships.id})}}" class="" style="padding: 0px; width: auto; height: auto;">
-						<img src="{{starships.image}}" alt="starships" class="imgCollection card-img-top" style="height:350px;">
+						<img src="{{starships.image}}" alt="starships" class="card-img-top">
 					</a>
-					<div
-						style="display: flex; width: 100%; justify-content: space-around; ">
+					<div style="display: flex; width: 100%; justify-content: space-around; ">
 						{% if is_granted('ROLE_ADMIN') %}
 						<a href="{{path("editStarship", {"id":starships.id})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>
 						<a href="{{path("deleteStarship", {"id":starships.id})}}" class="btn btn-danger" style="padding: 0px; width: 55px">Borrar</a>

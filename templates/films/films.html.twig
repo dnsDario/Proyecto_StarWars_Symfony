@@ -5,13 +5,13 @@
 		<div class="collections" >
 		{% for film in films %}
 			<div class="card" >
-				<h4 class="card-header text-center" style="color: white; height: 60px; font-size: 20px;">{{film.title}}</h4>
-				<p class="card-header text-center" style="color: white; height: 35px; font-size: 16px;">Episodio {{film.episodeId}}</p>
+				<h4 class="text-center" style="color: white; height: 30px; font-size: clamp(16px, 2vw, 20px); margin:0px;">{{film.title}}</h4>
+				<p class="text-center" style="color: white; height: 20px; font-size: clamp(12px, 2vw, 16px);">Episodio {{film.episodeId}}</p>
 				<a href="{{path("showFilm",{"id":film.episodeId})}}" >
-					<img src="{{film.image}}" alt="film" class="card-img-top" style="height: 350px;">
+					<img src="{{film.image}}" alt="film" class="card-img-top">
 				</a>
-				<div class="card-body">
-					<p class="card-text text-justify" style="overflow:hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; color: white;">{{film.openingCrawl}}</p>
+				<div>
+					<p class="text-justify" style="overflow:hidden; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; color: white; font-size: clamp(10px, 2vw, 12px); margin-inline: 10px; ">{{film.openingCrawl}}</p>
 					<div style="display: flex; width: 100%; justify-content: space-around; ">
 					{% if is_granted('ROLE_ADMIN') %}
 					<a href="{{path("editFilm", {"id":film.episodeId})}}" class="btn btn-success" style="padding: 0px; width: 55px">Editar</a>

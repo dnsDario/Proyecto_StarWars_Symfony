@@ -2,7 +2,7 @@
 {% block stylesheets %} <link rel="stylesheet" href="{{ asset('css/styles.css') }}"> {% endblock %}
 {% block showFilm %}
 	<div class="row row-cols-1 row-cols-md-2 mt-3 d-flex flex-column justify-content-center align-items-center" style="width: 95vw; height: auto; background-color: black;">
-		<h2 style="color: yellow; font-size: 36px; font-family: 'Montserrat', sans-serif; font-weight: 500;">{{film.title}}</h2>
+		<h2 style="color: yellow; font-size: clamp(26px, 3.5vw, 48px); font-family: 'Montserrat', sans-serif; font-weight: 500;">{{film.title}}</h2>
 		<div class="tarjet">
 			<div class="imgTarjet">
 				<img src="{{(film.image)}}" alt="film">
@@ -20,7 +20,7 @@
 			</div>
 		</div>
 
-		<h3 style="width: 90%; margin-top:20px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Planetas en
+		<h3 style="width: 90%; font-size: clamp(24px, 2.5vw, 32px); margin-top:20px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Planetas en
 			{{film.title}}</h3>
 		<div class="collections">
 			{% for planet in film.planets %}
@@ -39,7 +39,7 @@
 				</div>
 			{% endfor %}
 		</div>
-		<h3 style="width: 90%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Naves Espaciales en
+		<h3 style="width: 90%; font-size: clamp(24px, 2.5vw, 32px); margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Naves Espaciales en
 			{{film.title}}</h3>
 		<div class="collections">
 			{% for starship in film.starships %}
@@ -59,7 +59,7 @@
 			{% endfor %}
 		</div>
 
-		<h3 style="width: 90%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Personajes en
+		<h3 style="width: 90%; font-size: clamp(24px, 2.5vw, 32px); margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Personajes en
 			{{film.title}}:</h3>
 
 		<div class="collections">

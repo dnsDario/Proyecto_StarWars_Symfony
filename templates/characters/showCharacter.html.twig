@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <h3 style="width: 95%; margin-top:20px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Naves Espaciales pilotadas por {{character.name}}</h3>
+    <h3 style="width: 95%;font-size: clamp(24px, 2.5vw, 32px); margin-top:20px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Naves Espaciales pilotadas por {{character.name}}</h3>
     <div class="collections">
         {% for starship in character.starships %}
                 <div class="card">
@@ -37,7 +37,7 @@
 		    </div>
         {% endfor %}
     </div>
-    <h3 style="width: 95%; margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Películas en las que aparece {{character.name}}</h3>
+    <h3 style="width: 95%; font-size: clamp(24px, 2.5vw, 32px); margin-top:30px; text-align: left; color:yellow; font-family: 'Montserrat', sans-serif; font-weight: 600;">Películas en las que aparece {{character.name}}</h3>
     <div class="collections">
         {% for film in character.films %}
                 <div class="card">

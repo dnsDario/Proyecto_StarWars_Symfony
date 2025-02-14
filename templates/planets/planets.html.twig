@@ -7,9 +7,9 @@
 		{% for planet in planets %}
 			{% if planet.image %}
 				<div class="card">
-					<h4 class="card-header" style="color: white; height: 40px;">{{planet.name}}</h4>
-					<a href="{{path("showPlanet",{"id":planet.id})}}" class="" style="padding: 0px; width: auto; height: auto;">
-						<img src="{{planet.image}}" alt="planet" class="card-img-top" style=" height:350px;">
+					<h4 style="color: white; height: 30px; font-size: clamp(16px, 2vw, 20px); margin:0px;">{{planet.name}}</h4>
+					<a href="{{path("showPlanet",{"id":planet.id})}}">
+						<img src="{{planet.image}}" alt="planet" class="card-img-top">
 					</a>
 					<div
 						style="display: flex; width: 100%; justify-content: space-around; ">
